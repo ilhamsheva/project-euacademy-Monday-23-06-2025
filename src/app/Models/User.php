@@ -26,6 +26,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'name',
         'email',
         'password',
+        'phone'
     ];
 
     /**
@@ -66,4 +67,18 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         return true;
     }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+    public function teachers(){
+        return $this->hasMany(Teacher::class);
+    }
+
+    public function students(){
+        return $this->hasMany(Student::class);
+    }
+
 }

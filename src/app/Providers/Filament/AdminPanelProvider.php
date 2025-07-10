@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use Filament\Enums\ThemeMode;
+use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -57,8 +58,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->userMenuItems([
                 'profile' => MenuItem::make()
-                    ->label(fn () => auth()->user()->name)
-                    ->url(fn (): string => EditProfilePage::getUrl())
+                    ->label(fn() => auth()->user()->name)
+                    ->url(fn(): string => EditProfilePage::getUrl())
                     ->icon('heroicon-m-user-circle'),
                 // 'profile' => \Filament\Navigation\MenuItem::make()
                 //     ->label(fn () => auth()->user()->name)
@@ -121,9 +122,11 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 \Hasnayeen\Themes\Http\Middleware\SetTheme::class,
+                \App\Http\Middleware\AuthenticateAdminOnly::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
+                \App\Http\Middleware\AuthenticateAdminOnly::class,
             ]);
     }
 }

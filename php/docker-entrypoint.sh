@@ -212,9 +212,14 @@ chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 echo "🗃️ Running migrations..."
 php artisan migrate --force
 
-# Step 8: Run custom project init command
-echo "🚀 Running project:init..."
-php artisan project:init || true
+# Step 8: Run custom project init command only after fresh build
+if [ -f /tmp/built.flag ]; then
+  echo "🚀 Detected fresh build: running project:init..."
+  php artisan project:init || false
+  rm -f /tmp/built.flag
+else
+  echo "ℹ️ Skipping project:init (not a fresh build)."
+fi
 
 # Step 9: Create storage symbolic link
 echo "🔗 Creating storage link..."

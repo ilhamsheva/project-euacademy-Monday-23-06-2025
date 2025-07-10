@@ -1,0 +1,13 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+/* resources/sass/app.scss */
+@import 'variables';  // Jika ada variabel atau pengaturan lainnya
+@import 'mixins';     // Jika ada mixin atau pengaturan lainnya
+@import 'styles';     // Misalnya file umum lainnya yang digunakan di seluruh aplikasi
